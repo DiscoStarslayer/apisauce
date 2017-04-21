@@ -7,12 +7,15 @@
     "url": "https://github.com/skellock/apisauce.git"
   },
   "main": "./dist/apisauce.js",
+  "module": "./dist/apisauce.es6.js",
   "scripts": {
     "test": "ava -s",
     "coverage": "nyc ava",
     "dist": "npm run clean && npm run build",
     "clean": "rm -rf dist",
-    "build": "BABEL_ENV=production rollup -c",
+    "build": "npm run build-cjs && npm run build-es6",
+    "build-cjs": "BABEL_ENV=production rollup -c",
+    "build-es6": "BABEL_ENV=production MODULES=true rollup -c",
     "lint": "standard lib/* test/* rollup.config.js",
     "shipit": "npm run dist && np"
   },
@@ -49,6 +52,7 @@
     "rollup-plugin-filesize": "^1.2.1",
     "rollup-plugin-uglify": "^1.0.2",
     "standard": "^10.0.2"
+    "uglify-js": "github:mishoo/UglifyJS2#harmony"
   },
   "ava": {
     "require": [
